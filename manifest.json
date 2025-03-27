@@ -1,0 +1,19 @@
+{
+    "name": "Hawk Pass",
+    "description": "Local Password Generator",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["storage", "activeTab", "scripting"],
+    "background": {
+    "service_worker": "./package/main.js"
+  },
+    "action": {
+      "default_popup": "./package/index.html",
+      "default_icon": {
+      "16": "images/iconDarkMotive.png",
+      "32": "images/iconDarkMotive.png",
+      "48": "images/iconDarkMotive.png",
+      "128": "images/iconDarkMotive.png"
+    }
+  }
+  }
