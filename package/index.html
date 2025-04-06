@@ -1,26 +1,29 @@
 <html>
   <head>
-    
+    <!-- popup.html -->
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="container">
-    <h1>Generate your password :</h1>
-    <form>
+    <h1>Label :</h1>
+    <form class="form-check form-switch">
       <input type="range" name="passwordLenght" id="passwordLenght" min="6" max="64" value="16">
       <label for="passwordLenght">Password lenght: <output id="passwordLenghtValue"></output></label>
       <br>
-      <input type="checkbox" name="bigLetters" id="bigLetters" checked>
-      <label for="bigLetters">Big letters</label>
-      <input type="checkbox" name="smallLetters" id="smallLetters">
-      <label for="smallLetters">Small letters</label>
-      <input type="checkbox" name="numbers" id="numbers">
-      <label for="numbers">numbers</label>
-      <input type="checkbox" name="specialChars" id="specialChars">
-      <label for="specialChars">Special chars</label>
+      <input class="form-check-input" type="checkbox" role="switch" name="bigLetters" id="bigLetters" checked>
+      <label class="form-check-label" for="bigLetters">Big letters</label><br>
+      <input class="form-check-input" type="checkbox" role="switch" name="smallLetters" id="smallLetters" checked>
+      <label class="form-check-label" for="smallLetters">Small letters</label><br>
+      <input class="form-check-input" type="checkbox" role="switch" name="numbers" id="numbers"checked>
+      <label class="form-check-label" for="numbers">numbers</label><br>
+      <input class="form-check-input" type="checkbox" role="switch" name="specialChars" id="specialChars"checked>
+      <label class="form-check-label" for="specialChars">Special chars</label><br>
+      
     </form>
     <input type="text" id="genPass" value="" disabled>
-    <button type="button" id="passButton">Generate Password</button>
+    <button type="button" class="btn btn-outline-primary" id="passButton">Generate Password</button>
     
     <script defer src="main.js"></script>
     </div>
