@@ -1,5 +1,6 @@
-document.getElementById("passButton").addEventListener("click", generatePassword);
-
+document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
+document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
+getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 const passwordLenght = document.querySelector("#passwordLenght");
 const value = document.querySelector("#passwordLenghtValue");
 value.textContent = passwordLenght.value;
@@ -9,16 +10,45 @@ passwordLenght.addEventListener("input", (event) => {
 
 
 
-function getInfoAboutPassword(){
-    let lenght = passwordLenght.value;
-    let bigLetters = document.getElementById("bigLetters").checked;
-    let smallLetters = document.getElementById("smallLetters").checked;
-    let numbers = document.getElementById("numbers").checked;
-    let specialChars = document.getElementById("specialChars").checked;
-    let parametrs = [lenght, bigLetters, smallLetters, numbers, specialChars];
+
+function savePasswordSettings(){
+    chrome.storage.local.set({
+        length:passwordLenght.value,
+        bigLetters:document.getElementById("bigLetters").checked,
+        smallLetters:document.getElementById("smallLetters").checked,
+        numbers:document.getElementById("numbers").checked,
+        specialChars:document.getElementById("specialChars").checked
+    })
+    getInfoAboutPassword();//should fix that
     
-    return parametrs;
 }
+
+
+//fix this function !!!
+function getInfoAboutPassword(){
+    try{
+        chrome.storage.local.get(["length","bigLetters","smallLetters","numbers","specialChars"],(results)=> {
+            lenght = results.length
+            bigLetters = results.bigLetters
+            smallLetters = results.smallLetters
+            numbers = results.numbers
+            specialChars =results.specialChars
+        });
+        let parametrs = [lenght, bigLetters, smallLetters, numbers, specialChars];
+        return parametrs;
+    }
+    catch(err){
+       console.log("Loading memory...")
+    }
+    
+    
+
+}
+
+function setSettingsInHTML(){
+    
+}
+
 
 function dictionaryW(){
     const arrayOfBigLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -51,15 +81,17 @@ function copyToClipBoard(){
 }
 
 function generatePassword(){
-    let parametrs  = getInfoAboutPassword();
-    length = parametrs[0];
+    let parametrs = getInfoAboutPassword();
+    console.log(parametrs)
+    let length = parametrs[0];
     const arrayOfChars = [];
     let dictionary = [];
     dictionary = dictionaryW();
     for (let index = 0; index < length; index++) {
-        let generatedPassword = Math.floor(Math.random() * dictionary.length);
-        generatedPassword = dictionary[generatedPassword];
-        arrayOfChars[index] = generatedPassword;
+        let generatedCharForPassword = Math.floor(Math.random() * dictionary.length);
+        generatedCharForPassword = dictionary[generatedCharForPassword];
+
+        arrayOfChars[index] = generatedCharForPassword;
         
     }
     let readyPassword = arrayOfChars.join('');

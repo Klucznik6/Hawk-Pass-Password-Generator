@@ -5,11 +5,22 @@
 
 body{
     color: var(--white);
-    width: 300px;
-    height: 300px;
+    width: 450px;
+    height: 500px;
     background-color: var(--grey);
 }
 #container{
+    margin-top: 100px;
+    position:absolute;
+    z-index: 1;
     width: 100%;
     height: 100%;
+    float: left;
+}
+a{
+    color: var(--white) !important;
+}
+.darkMotive{
+    color: var(--white) !important;
+    background-color: var(--grey) !important;
 }

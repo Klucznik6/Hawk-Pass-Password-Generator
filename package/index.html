@@ -6,26 +6,68 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div id="container">
-    <h1>Label :</h1>
-    <form class="form-check form-switch">
-      <input type="range" name="passwordLenght" id="passwordLenght" min="6" max="64" value="16">
-      <label for="passwordLenght">Password lenght: <output id="passwordLenghtValue"></output></label>
-      <br>
-      <input class="form-check-input" type="checkbox" role="switch" name="bigLetters" id="bigLetters" checked>
-      <label class="form-check-label" for="bigLetters">Big letters</label><br>
-      <input class="form-check-input" type="checkbox" role="switch" name="smallLetters" id="smallLetters" checked>
-      <label class="form-check-label" for="smallLetters">Small letters</label><br>
-      <input class="form-check-input" type="checkbox" role="switch" name="numbers" id="numbers"checked>
-      <label class="form-check-label" for="numbers">numbers</label><br>
-      <input class="form-check-input" type="checkbox" role="switch" name="specialChars" id="specialChars"checked>
-      <label class="form-check-label" for="specialChars">Special chars</label><br>
-      
-    </form>
-    <input type="text" id="genPass" value="" disabled>
-    <button type="button" class="btn btn-outline-primary" id="passButton">Generate Password</button>
     
-    <script defer src="main.js"></script>
-    </div>
+    <nav class="navbar navbar-dark bg-light fixed-top darkMotive">
+      <div class="container-fluid ">
+        
+        <a class="navbar-brand" href="#">Hawk Pass</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="offcanvas offcanvas-end darkMotive" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="images/iconDarkMotive.png" alt="Dark Hawk" style="width: 25%;"> Menu </h5>
+            <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Github</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/guide.html" target="_blank">Guide</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Settings
+                </a>
+                <ul class="dropdown-menu darkMotive" aria-labelledby="offcanvasNavbarDropdown">
+                  <li class="dropdown-item darkMotive"><section>
+                    <form class="form-check form-switch">
+                      <label for="passwordLenght">Password lenght: <output id="passwordLenghtValue"></output></label>
+                      <input type="range" name="passwordLenght" id="passwordLenght" min="6" max="64" value="16">
+                      <br>
+                      <input class="form-check-input" type="checkbox" role="switch" name="bigLetters" id="bigLetters" checked>
+                      <label class="form-check-label" for="bigLetters">Big letters</label><br>
+                      <input class="form-check-input" type="checkbox" role="switch" name="smallLetters" id="smallLetters" checked>
+                      <label class="form-check-label" for="smallLetters">Small letters</label><br>
+                      <input class="form-check-input" type="checkbox" role="switch" name="numbers" id="numbers"checked>
+                      <label class="form-check-label" for="numbers">Numbers</label><br>
+                      <input class="form-check-input" type="checkbox" role="switch" name="specialChars" id="specialChars"checked>
+                      <label class="form-check-label" for="specialChars">Special chars</label>
+                      <hr>
+                      <button type="button" class="btn btn-outline-primary" id="saveSettings" style="float: right;">Save</button><br><br>
+                      
+                    </form>
+                  </section></li>
+                </ul>
+              </li>
+              
+            </ul>
+            <!--Tutaj był do wyszukiwania-->
+          </div>
+        </div>
+        
+      </div>
+      
+    </nav>
+    <div id="container" class="col align-self-center fixed-top">
+      <input type="text" id="genPass" value="" disabled>
+      <button type="button" class="btn btn-outline-primary" id="passButton">Generate Password</button>
+      
+      
+      </div>
   </body>
+  <script defer src="main.js"></script>
 </html>
