@@ -7,7 +7,10 @@ passwordLenght.addEventListener("input", (event) => {
   value.textContent = event.target.value;
 });
 
+function getPasswordPlace(){
 
+
+}
 
 function getInfoAboutPassword(){
     let lenght = passwordLenght.value;
