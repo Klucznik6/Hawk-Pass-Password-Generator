@@ -1,13 +1,14 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
+document.getElementById("openMenu").addEventListener("click",setSettingsInHTML); // menu opening
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
+
 const passwordLenght = document.querySelector("#passwordLenght");
 const value = document.querySelector("#passwordLenghtValue");
 value.textContent = passwordLenght.value;
 passwordLenght.addEventListener("input", (event) => {
   value.textContent = event.target.value;
 });
-
 
 
 
@@ -20,7 +21,6 @@ function savePasswordSettings(){
         specialChars:document.getElementById("specialChars").checked
     })
     getInfoAboutPassword();//should fix that
-    
 }
 
 
@@ -40,13 +40,17 @@ function getInfoAboutPassword(){
     catch(err){
        console.log("Loading memory...")
     }
-    
-    
-
 }
 
 function setSettingsInHTML(){
-    
+    parametrs = getInfoAboutPassword()
+    console.log(parametrs)
+    document.querySelector("#passwordLenght").setAttribute('value',parametrs[0])
+    document.querySelector("#passwordLenghtValue").value = parametrs[0]
+    document.querySelector("#bigLetters").checked = parametrs[1]
+    document.querySelector("#smallLetters").checked = parametrs[2]
+    document.querySelector("#numbers").checked = parametrs[3]
+    document.querySelector("#specialChars").checked = parametrs[4]
 }
 
 
@@ -82,7 +86,7 @@ function copyToClipBoard(){
 
 function generatePassword(){
     let parametrs = getInfoAboutPassword();
-    console.log(parametrs)
+    //console.log(parametrs)
     let length = parametrs[0];
     const arrayOfChars = [];
     let dictionary = [];
@@ -100,4 +104,5 @@ function generatePassword(){
     // moduł kopiujący hasło do schowka
     copyToClipBoard();
 }
+
 
