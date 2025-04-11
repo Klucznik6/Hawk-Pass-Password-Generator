@@ -10,8 +10,6 @@ passwordLenght.addEventListener("input", (event) => {
   value.textContent = event.target.value;
 });
 
-
-
 function savePasswordSettings(){
     chrome.storage.local.set({
         length:passwordLenght.value,
@@ -22,8 +20,6 @@ function savePasswordSettings(){
     })
     getInfoAboutPassword();//should fix that
 }
-
-
 //fix this function !!!
 function getInfoAboutPassword(){
     try{
@@ -77,14 +73,11 @@ function dictionaryW(){
     return dictionary;
 }
 
-function copyToClipBoard(){
-    pass = document.getElementById("genPass")
-    pass.select();
-    pass.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(pass.value);
+function copyToClipBoard(pass){
+    navigator.clipboard.writeText(pass);
 }
 
-function generatePassword(){
+function generatePasswordString(){
     let parametrs = getInfoAboutPassword();
     //console.log(parametrs)
     let length = parametrs[0];
@@ -99,10 +92,16 @@ function generatePassword(){
         
     }
     let readyPassword = arrayOfChars.join('');
-    console.log(readyPassword);
-    document.getElementById("genPass").value = readyPassword;
-    // moduł kopiujący hasło do schowka
-    copyToClipBoard();
+    copyToClipBoard(readyPassword);
+    return readyPassword
 }
 
+function generatePassword(){
+    let readyPassword = generatePasswordString()
+    document.getElementById("genPass").value = readyPassword;
+}
 
+function generatePasswordInInput(){
+    let piwo = document.querySelector("input[type='password']")
+    piwo.value = generatePassword()
+}
