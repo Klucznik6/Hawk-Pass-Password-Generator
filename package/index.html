@@ -65,8 +65,14 @@
     </nav>
     <div id="container" class="container align-self-center fixed-top">
       <img src="/package/images/bigLogo.png" alt="Big version of hawk pass logo" style="width: 100%;">
-      <input type="text" id="genPass" value="" disabled style="width: 60%; float: left;">
-      <button type="button" class="btn btn-outline-primary" id="passButton" style="width: 40%; float: left;">Generate Password</button>  
+      <div class="input-group mb-3" style="width: 100%;">
+        <input type="text"class="form-control" id="genPass" value="" disabled >
+      <div class="input-group-append">
+        <button type="button" class="btn btn-outline-secondary" id="passButton" >Generate Password</button>  
+      </div>
+    </div>
+
+
     </div>
   </body>
   <script src="main.js"></script>
