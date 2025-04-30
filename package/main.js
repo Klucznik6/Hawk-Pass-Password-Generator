@@ -1,6 +1,7 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
 document.getElementById("openMenu").addEventListener("click",setSettingsInHTML); // menu opening
+document.getElementById("testBtn").addEventListener("click",checkPasswordStrongness);
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 
 const passwordLenght = document.querySelector("#passwordLenght");
@@ -95,10 +96,44 @@ function generatePasswordString(){
     copyToClipBoard(readyPassword);
     return readyPassword
 }
-
+// should do it differently
+function checkPasswordStrongness(){
+    let parametrs = getInfoAboutPassword();
+    let checkedPoints = 0;
+    console.log("lenght, bigLetters, smallLetters, numbers, specialChars");
+    console.log(parametrs);
+    if(parametrs[0]>=10){
+        checkedPoints++;
+    }
+    if(parametrs[1]){
+        checkedPoints++;
+    }
+    if(parametrs[2]){
+        checkedPoints++;
+    }
+    if(parametrs[3]){
+        checkedPoints++;
+    }
+    if(parametrs[4]){
+        checkedPoints++;
+    }
+    switch(checkedPoints){
+        case 1:
+            return "very weak"
+        case 2:
+            return "weak"
+        case 3:
+            return "normal"
+        case 4:
+            return "strong"
+        case 5:
+            return "very strong"
+    }
+}
 function generatePassword(){
     let readyPassword = generatePasswordString()
     document.getElementById("genPass").value = readyPassword;
+    console.log(checkPasswordStrongness()) // called in console
 }
 
 function generatePasswordInInput(){
