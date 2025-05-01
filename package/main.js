@@ -1,7 +1,6 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
 document.getElementById("openMenu").addEventListener("click",setSettingsInHTML); // menu opening
-document.getElementById("testBtn").addEventListener("click",checkPasswordStrongness);
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 
 const passwordLenght = document.querySelector("#passwordLenght");
@@ -97,7 +96,7 @@ function generatePasswordString(){
     return readyPassword
 }
 // should do it differently
-function checkPasswordStrongness(){
+function passwordStrength(){
     let parametrs = getInfoAboutPassword();
     let checkedPoints = 0;
     console.log("lenght, bigLetters, smallLetters, numbers, specialChars");
@@ -119,21 +118,36 @@ function checkPasswordStrongness(){
     }
     switch(checkedPoints){
         case 1:
-            return "very weak"
+            let a = document.getElementById("PasswordStrongness");
+            a.innerHTML = "Very weak"
+            a.style.color = "#911111"
+            break;
         case 2:
-            return "weak"
+            let b = document.getElementById("PasswordStrongness");
+            b.innerHTML = "Weak"
+            b.style.color = "#732525"
+            break;
         case 3:
-            return "normal"
+            let c = document.getElementById("PasswordStrongness");
+            c.innerHTML = "Good"
+            c.style.color = "#2dadab"
+            break;
         case 4:
-            return "strong"
+            let d = document.getElementById("PasswordStrongness");
+            d.innerHTML = "Strong"
+            d.style.color = "#26c990"
+            break;
         case 5:
-            return "very strong"
+            let e = document.getElementById("PasswordStrongness");
+            e.innerHTML = "Very strong"
+            e.style.color = "#2358eb"
+            break;
     }
 }
 function generatePassword(){
     let readyPassword = generatePasswordString()
     document.getElementById("genPass").value = readyPassword;
-    console.log(checkPasswordStrongness()) // called in console
+    passwordStrength();
 }
 
 function generatePasswordInInput(){
