@@ -1,6 +1,7 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
 document.getElementById("openMenu").addEventListener("click",setSettingsInHTML); // menu opening
+document.getElementById("GeneratePassword").addEventListener("click",generateListOfPasswords); // generate password
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 
 const passwordLenght = document.querySelector("#passwordLenght");
@@ -150,7 +151,39 @@ function generatePassword(){
     passwordStrength();
 }
 
-function generatePasswordInInput(){
+function generateListOfPasswords(){
+    let ammount = document.getElementById("howManyPasswords").value;
+    let e = document.getElementById("howManyPasswordsError");
+    if(ammount <= 0){
+        e.innerHTML= "Please enter a number greater than 0 !";
+        e.style.color = "#911111" 
+        return;
+    }if(isNaN(ammount)){
+        e.innerHTML= "Please enter a number!";
+        e.style.color = "#911111" 
+        return;
+    }else{
+        e.innerHTML= "ㅤ";
+        e.style.color = "var(--grey)";
+    }
+    console.log(ammount);
+    
+    let passwords = [];
+    for (let index = 0; index < ammount; index++) {
+        let readyPassword = generatePasswordString();
+        passwords.push(readyPassword);
+    }
+    console.log(passwords);
+    document.getElementById("howManyPasswords").value = null;
+    e.innerHTML="Passwords were generated succesfully!"
+    e.style.color = "green"
+    // There download module
+    //array to csv file
+    
+}
+
+// Do dokończenia
+function generatePasswordInInputSide(){
     let piwo = document.querySelector("input[type='password']")
     piwo.value = generatePassword()
 }

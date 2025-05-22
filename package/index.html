@@ -1,8 +1,8 @@
 <html>
   <head>
     <!-- popup.html -->
-    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-    <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
+    <script src="libs/bootstrap/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -65,14 +65,19 @@
       
     </nav>
     <div id="container" class="container align-self-center fixed-top">
-      <!--<img src="/package/images/bigLogo.png" alt="Big version of hawk pass logo" style="width: 100%;">-->
       <div class="input-group mb-3" style="width: 100%;">
-        <input type="text"class="form-control" id="genPass" value="" disabled >
-      <div class="input-group-append">
-        <button type="button" class="btn btn-outline-secondary" id="passButton" >Generate Password</button>  
+        <input type="text"class="form-control" id="genPass" placeholder="Password:" disabled readonly>
+        <label class="input-group-append" for="genPass">
+          <button type="button" class="btn btn-outline-secondary" id="passButton" >Generate Password</button>
+        </label>
+        <label class="divSection" id="PasswordStrongness" for="genPass" style="color:var(--grey) ;">ㅤ</label>
+        <input type="text" name="howManyPasswords" id="howManyPasswords"class="form-control" placeholder="Ammount of passwords:">
+        <label class="input-group-append" for="howManyPasswords">
+          <button type="button" class="btn btn-outline-secondary" name="GeneratePassword" id="GeneratePassword">Generate Lists</button>
+        </label>
+        <label class="divSection"for="howManyPasswords" id="howManyPasswordsError" style="color:var(--grey);">ㅤ</label>
+          
       </div>
-      <div class="divSection" id="PasswordStrongness"></div>
-    </div>
 
 
     </div>
