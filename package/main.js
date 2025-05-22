@@ -55,7 +55,7 @@ function dictionaryW(){
     const arrayOfBigLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     const arrayOfSmallLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
     const arrayOfNumbers = [0,1,2,3,4,5,6,7,8,9];
-    const arrayOfspecialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '|'];
+    const arrayOfspecialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ':', ';', '"', "'", '<', '>', '.', '?', '/', '|']; //',' 
     let dictionary = [];
     let parametrs = getInfoAboutPassword();
 
@@ -177,8 +177,18 @@ function generateListOfPasswords(){
     document.getElementById("howManyPasswords").value = null;
     e.innerHTML="Passwords were generated succesfully!"
     e.style.color = "green"
-    // There download module
     //array to csv file
+    const csvContent = passwords.join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'passwords.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
     
 }
 
