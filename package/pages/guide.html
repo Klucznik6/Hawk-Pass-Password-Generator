@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawk Pass - User Guide</title>
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.css">
+    <style>
+        body {
+            padding-top: 60px;
+            color: #F5F4F5;
+            background-color: #202124;
+        }
+        .guide-section {
+            margin-bottom: 40px;
+        }
+        code {
+            background-color: #2d2d2d;
+            color: #26c990;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .navbar {
+            background-color: #202124 !important;
+        }
+        .container {
+            color: #F5F4F5;
+        }
+        .card {
+            background-color: #232323;
+            border: 1px solid #444;
+        }
+        .feature-list li {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/iconDarkMotive.png" alt="Hawk Pass" width="30" height="30" class="d-inline-block align-text-top">
+                Hawk Pass Guide
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="guide-section">
+                    <h1 class="mb-4">Hawk Pass User Guide</h1>
+                    <p class="lead">Welcome to Hawk Pass! This guide will help you use all features of the password generator extension.</p>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Getting Started</h2>
+                    <ol>
+                        <li>Install the Hawk Pass extension from the Chrome Web Store or <a href="https://github.com/Klucznik6/Password-Generator.git" target="_blank">GitHub</a>.</li>
+                        <li>Click the Hawk Pass icon in your Chrome toolbar to open the popup.</li>
+                        <li>Use the popup to generate passwords or adjust settings.</li>
+                        <li>On any website, Hawk Pass will add a <b>Generate</b> button next to password fields for quick password insertion.</li>
+                    </ol>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Features</h2>
+                    <ul class="feature-list">
+                        <li><b>Single Password Generation:</b> Click <code>Generate Password</code> to create a secure password. It will be copied to your clipboard automatically.</li>
+                        <li><b>Password Strength Indicator:</b> Shows the strength of your generated password based on length and character types.</li>
+                        <li><b>Bulk Password Generation:</b> Enter the number of passwords you need and click <code>Generate Lists</code>. A CSV file with all passwords will be downloaded.</li>
+                        <li><b>Website Integration:</b> On any site, a <code>Generate</code> button appears next to password fields. Click it to auto-fill a strong password.</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Password Settings</h2>
+                    <p>Customize how your passwords are generated in the <b>Settings</b> menu:</p>
+                    <ul>
+                        <li>
+                            <b>Password Length:</b>
+                            <ul>
+                                <li>Set from <b>6</b> to <b>64</b> characters using the slider.</li>
+                                <li>Recommended: at least <b>12</b> characters for strong security.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b>Character Types:</b>
+                            <ul>
+                                <li><b>Big letters (A-Z):</b> Include uppercase letters.</li>
+                                <li><b>Small letters (a-z):</b> Include lowercase letters.</li>
+                                <li><b>Numbers (0-9):</b> Include digits.</li>
+                                <li><b>Special chars (!@#$...):</b> Include special characters.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b>Saving Settings:</b> After changing any option, click <code>Save</code> to apply your preferences.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Password Strength Indicator</h2>
+                    <ul>
+                        <li><span style="color: #911111">Very weak</span>: Only one character type or short length</li>
+                        <li><span style="color: #732525">Weak</span>: Two character types</li>
+                        <li><span style="color: #2dadab">Good</span>: Three character types</li>
+                        <li><span style="color: #26c990">Strong</span>: Four character types</li>
+                        <li><span style="color: #2358eb">Very strong</span>: Four types and length at least 10</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Website Integration</h2>
+                    <ul>
+                        <li>When you visit a website with a password field, Hawk Pass automatically adds a <b>Generate</b> button next to it.</li>
+                        <li>Click the button to instantly generate and fill a strong password.</li>
+                        <li>The button uses a unique style for visibility and consistency.</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Tips for Secure Passwords</h2>
+                    <ul>
+                        <li>Use at least 12 characters for important accounts.</li>
+                        <li>Enable all character types for maximum strength.</li>
+                        <li>Never reuse passwords across different sites.</li>
+                        <li>Store your passwords in a secure password manager.</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Troubleshooting</h2>
+                    <ul>
+                        <li>If the extension does not work on a website, try refreshing the page.</li>
+                        <li>Make sure you have granted the extension permissions in Chrome.</li>
+                        <li>For more help, visit the <a href="https://github.com/Klucznik6/Password-Generator.git" target="_blank">GitHub repository</a>.</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Contact & Support</h2>
+                    <p>For feedback, bug reports, or feature requests, please open an issue on <a href="https://github.com/Klucznik6/Password-Generator.git" target="_blank">GitHub</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../libs/bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>

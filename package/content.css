@@ -1,0 +1,33 @@
+.button-unical2315 {
+  align-items: center !important;
+  appearance: button !important;
+  background-color: #0276FF !important;
+  border-radius: 8px !important;
+  border-style: none !important;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-shrink: 0 !important;
+  font-family: "RM Neue",sans-serif !important;
+  font-size: 100% !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  padding: 10px 21px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: manipulation !important;
+}
+
+.button-unical2315:active {
+  background-color: #006AE8 !important;
+}
+
+.button-unical2315:focus {
+  background-color: #1C84FF !important;
+}

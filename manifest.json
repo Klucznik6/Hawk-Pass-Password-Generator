@@ -6,7 +6,16 @@
     "permissions": ["activeTab","storage", "scripting"],
     "background": {
     "service_worker": "./package/main.js"
+    
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["./package/content.js"],
+      "css": ["./package/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
     "action": {
       "default_popup": "./package/index.html",
       "default_icon": {

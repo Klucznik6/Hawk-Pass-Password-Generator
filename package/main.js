@@ -8,7 +8,7 @@ const passwordLenght = document.querySelector("#passwordLenght");
 const value = document.querySelector("#passwordLenghtValue");
 value.textContent = passwordLenght.value;
 passwordLenght.addEventListener("input", (event) => {
-  value.textContent = event.target.value;
+    value.textContent = event.target.value;
 });
 
 function savePasswordSettings(){
@@ -80,7 +80,6 @@ function copyToClipBoard(pass){
 
 function generatePasswordString(){
     let parametrs = getInfoAboutPassword();
-    //console.log(parametrs)
     let length = parametrs[0];
     const arrayOfChars = [];
     let dictionary = [];
@@ -188,8 +187,6 @@ function generateListOfPasswords(){
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-
-    
 }
 
 // Do dokończenia
