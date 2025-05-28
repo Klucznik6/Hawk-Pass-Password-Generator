@@ -1,6 +1,6 @@
 # Hawk Pass - Password Generator Chrome Extension
 
-![Hawk Pass Logo](package/images/iconDarkMotive.png)
+![Hawk Pass Logo](package/images/bigDarkMotiveLogo.png)
 
 ## Overview
 
