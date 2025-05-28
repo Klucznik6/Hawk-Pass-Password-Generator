@@ -17,9 +17,7 @@ async function getInfoAboutPassword() {
         return null;
     }
 }
-function copyToClipBoard(pass){
-    navigator.clipboard.writeText(pass);
-}
+
 async function dictionaryW() {
     const arrayOfBigLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     const arrayOfSmallLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -60,6 +58,11 @@ async function injectPassword(passwordField) {
     passwordField.dispatchEvent(new Event('input', { bubbles: true }));
     passwordField.dispatchEvent(new Event('change', { bubbles: true }));
     console.log('Wstawiono hasło:', generatedPassword);
+}
+
+function copyToClipBoard(pass){
+    navigator.clipboard.writeText(pass);
+    alert("Password copied to clipboard!");
 }
 
 const observer = new MutationObserver(() => {
