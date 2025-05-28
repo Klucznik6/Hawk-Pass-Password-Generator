@@ -188,9 +188,3 @@ function generateListOfPasswords(){
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
-
-// Do dokończenia
-function generatePasswordInInputSide(){
-    let piwo = document.querySelector("input[type='password']")
-    piwo.value = generatePassword()
-}
