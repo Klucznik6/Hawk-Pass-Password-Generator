@@ -69,22 +69,24 @@ const observer = new MutationObserver(() => {
   const passwordField = document.querySelector('input[type="password"]');
 
   if (passwordField && !document.getElementById("generatePasswordUnical2142")) {
-    const br = document.createElement("br");
-    passwordField.insertAdjacentElement('afterend', br);
+    //const br = document.createElement("br");
+    //const br2 = document.createElement("br");
+    //passwordField.insertAdjacentElement('afterend', br2);
     const genButton = document.createElement("input");
     genButton.type = "button";
     genButton.value = "Generate";
     genButton.id = "generatePasswordUnical2142";
+    genButton.classList.add("button");
     genButton.classList.add("button-unical2315");
-    
     passwordField.insertAdjacentElement('afterend',genButton);
-
+    //passwordField.insertAdjacentElement('afterend', br);
 
 
     genButton.addEventListener("click", () =>{ 
       injectPassword(passwordField);
     });
     observer.disconnect();
+    
   }
 });
 
