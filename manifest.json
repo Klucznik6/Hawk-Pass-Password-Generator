@@ -19,9 +19,9 @@
     "action": {
       "default_popup": "./package/index.html",
       "default_icon": {
-      "16": "./package/images/iconDarkMotive.png",
-      "32": "./package/images/iconDarkMotive.png",
-      "48": "./package/images/iconDarkMotive.png",
+      "16": "./package/images/16x16-darkMotiveLogo.png",
+      "32": "./package/images/32x32darkMotiveLogo.png",
+      "48": "./package/images/48x48darkMotiveLogo.png",
       "128": "./package/images/iconDarkMotive.png"
     }
   }
