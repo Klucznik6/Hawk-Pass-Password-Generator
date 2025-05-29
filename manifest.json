@@ -3,7 +3,7 @@
     "description": "Local Password Generator",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["activeTab","storage", "scripting"],
+    "permissions": ["storage"],
     "background": {
     "service_worker": "./package/main.js"
     
