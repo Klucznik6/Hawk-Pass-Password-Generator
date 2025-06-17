@@ -1,21 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html lang="pl">
   <head>
-    <!-- popup.html -->
+    <meta charset="UTF-8">
+    <title>Hawk Pass</title>
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
     <script src="libs/bootstrap/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    
     <nav class="navbar navbar-dark bg-light fixed-top darkMotive">
-
       <div class="container-fluid ">
-        
         <a class="navbar-brand" href="#">Hawk Pass</a>
         <button class="navbar-toggler" id="openMenu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="offcanvas offcanvas-end darkMotive" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="images/iconDarkMotive.png" alt="Dark Hawk" style="width: 25%;"> Menu </h5>
@@ -24,7 +22,7 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">Github</a>
+                <a class="nav-link" aria-current="page" href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">Github</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="pages/guide.html" target="_blank">Guide</a>
@@ -34,53 +32,57 @@
                   Settings
                 </a>
                 <ul class="dropdown-menu darkMotive" aria-labelledby="offcanvasNavbarDropdown">
-                  <li class="dropdown-item darkMotive"><section>
-                    <form class="form-check form-switch">
-                      <label for="passwordLenght">Password lenght: <output id="passwordLenghtValue"></output></label>
-                      <br>
-                      <input type="range" name="passwordLenght" id="passwordLenght" min="6" max="64" value="16">
-                      <br>
-                      <input class="form-check-input" type="checkbox" role="switch" name="bigLetters" id="bigLetters" checked>
-                      <label class="form-check-label" for="bigLetters">Big letters</label><br>
-                      <input class="form-check-input" type="checkbox" role="switch" name="smallLetters" id="smallLetters" checked>
-                      <label class="form-check-label" for="smallLetters">Small letters</label><br>
-                      <input class="form-check-input" type="checkbox" role="switch" name="numbers" id="numbers"checked>
-                      <label class="form-check-label" for="numbers">Numbers</label><br>
-                      <input class="form-check-input" type="checkbox" role="switch" name="specialChars" id="specialChars"checked>
-                      <label class="form-check-label" for="specialChars">Special chars</label>
-                      <hr>
-                      <button type="button" class="btn btn-outline-primary" id="saveSettings" style="float: right;">Save</button><br><br>
-                      
-                    </form>
-                  </section></li>
+                  <li class="dropdown-item darkMotive">
+                    <section>
+                      <form class="form-check form-switch">
+                        <label for="passwordLenght">Password lenght: <output id="passwordLenghtValue"></output></label>
+                        <br>
+                        <input type="range" name="passwordLenght" id="passwordLenght" min="6" max="64" value="16">
+                        <br>
+                        <div class="settings-switch-group">
+                          <div class="settings-switch-row">
+                            <input class="form-check-input" type="checkbox" role="switch" name="bigLetters" id="bigLetters" checked>
+                            <label class="form-check-label" for="bigLetters">Big letters</label>
+                          </div>
+                          <div class="settings-switch-row">
+                            <input class="form-check-input" type="checkbox" role="switch" name="smallLetters" id="smallLetters" checked>
+                            <label class="form-check-label" for="smallLetters">Small letters</label>
+                          </div>
+                          <div class="settings-switch-row">
+                            <input class="form-check-input" type="checkbox" role="switch" name="numbers" id="numbers" checked>
+                            <label class="form-check-label" for="numbers">Numbers</label>
+                          </div>
+                          <div class="settings-switch-row">
+                            <input class="form-check-input" type="checkbox" role="switch" name="specialChars" id="specialChars" checked>
+                            <label class="form-check-label" for="specialChars">Special chars</label>
+                          </div>
+                        </div>
+                        <hr>
+                        <button type="button" class="btn btn-outline-primary" id="saveSettings" style="float: right;">Save</button><br><br>
+                      </form>
+                    </section>
+                  </li>
                 </ul>
               </li>
-              
             </ul>
           </div>
         </div>
-        
       </div>
-      
-      
     </nav>
     <div id="container" class="container align-self-center fixed-top">
       <div class="input-group mb-3" style="width: 100%;">
-        <input type="text"class="form-control" id="genPass" placeholder="Password:" disabled readonly>
+        <input type="text" class="form-control" id="genPass" placeholder="Password:" disabled readonly>
         <label class="input-group-append" for="genPass">
-          <button type="button" class="btn btn-outline-secondary" id="passButton" >Generate Password</button>
+          <button type="button" class="btn btn-outline-secondary" id="passButton">Generate Password</button>
         </label>
         <label class="divSection" id="PasswordStrongness" for="genPass" style="color:var(--grey) ;">ㅤ</label>
-        <input type="text" name="howManyPasswords" id="howManyPasswords"class="form-control" placeholder="Ammount of passwords:">
+        <input type="text" name="howManyPasswords" id="howManyPasswords" class="form-control" placeholder="Ammount of passwords:">
         <label class="input-group-append" for="howManyPasswords">
           <button type="button" class="btn btn-outline-secondary" name="GeneratePassword" id="GeneratePassword">Generate Lists</button>
         </label>
-        <label class="divSection"for="howManyPasswords" id="howManyPasswordsError" style="color:var(--grey);">ㅤ</label>
-          
+        <label class="divSection" for="howManyPasswords" id="howManyPasswordsError" style="color:var(--grey);">ㅤ</label>
       </div>
-
-
     </div>
+    <script src="main.js"></script>
   </body>
-  <script src="main.js"></script>
 </html>
