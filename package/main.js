@@ -1,6 +1,8 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
-document.getElementById("openMenu").addEventListener("click",setSettingsInHTML); // menu opening
+document.getElementById("openMenu").addEventListener("click", async () => {
+    await setSettingsInHTML();
+}); // menu opening
 document.getElementById("GeneratePassword").addEventListener("click",generateListOfPasswords); // generate password
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 
@@ -178,7 +180,7 @@ async function passwordStrength() {
 async function generatePassword() {
     let readyPassword = await generatePasswordString();
     document.getElementById("genPass").value = readyPassword;
-    passwordStrength();
+    await passwordStrength();
 }
 
 async function generateListOfPasswords() {
