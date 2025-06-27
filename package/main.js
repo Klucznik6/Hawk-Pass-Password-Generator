@@ -36,17 +36,64 @@ async function getInfoAboutPassword() {
     });
 }
 
-function setSettingsInHTML(){
-    parametrs = getInfoAboutPassword()
-    console.log(parametrs)
-    document.querySelector("#passwordLenght").setAttribute('value',parametrs[0])
-    document.querySelector("#passwordLenghtValue").value = parametrs[0]
-    document.querySelector("#bigLetters").checked = parametrs[1]
-    document.querySelector("#smallLetters").checked = parametrs[2]
-    document.querySelector("#numbers").checked = parametrs[3]
-    document.querySelector("#specialChars").checked = parametrs[4]
+async function setSettingsInHTML() {
+    const parametrs = await getInfoAboutPassword();
+    console.log(parametrs);
+    document.querySelector("#passwordLenght").setAttribute('value', parametrs[0]);
+    document.querySelector("#passwordLenghtValue").value = parametrs[0];
+    document.querySelector("#bigLetters").checked = parametrs[1];
+    document.querySelector("#smallLetters").checked = parametrs[2];
+    document.querySelector("#numbers").checked = parametrs[3];
+    document.querySelector("#specialChars").checked = parametrs[4];
 }
 
+async function passwordStrength() {
+    const parametrs = await getInfoAboutPassword();
+    let checkedPoints = 0;
+    console.log("lenght, bigLetters, smallLetters, numbers, specialChars");
+    console.log(parametrs);
+    if (parametrs[0] >= 10) {
+        checkedPoints++;
+    }
+    if (parametrs[1]) {
+        checkedPoints++;
+    }
+    if (parametrs[2]) {
+        checkedPoints++;
+    }
+    if (parametrs[3]) {
+        checkedPoints++;
+    }
+    if (parametrs[4]) {
+        checkedPoints++;
+    }
+    let strongnessLabel = document.getElementById("PasswordStrongness");
+    switch (checkedPoints) {
+        case 1:
+            strongnessLabel.innerHTML = "Very weak";
+            strongnessLabel.style.color = "#911111";
+            break;
+        case 2:
+            strongnessLabel.innerHTML = "Weak";
+            strongnessLabel.style.color = "#732525";
+            break;
+        case 3:
+            strongnessLabel.innerHTML = "Good";
+            strongnessLabel.style.color = "#2dadab";
+            break;
+        case 4:
+            strongnessLabel.innerHTML = "Strong";
+            strongnessLabel.style.color = "#26c990";
+            break;
+        case 5:
+            strongnessLabel.innerHTML = "Very strong";
+            strongnessLabel.style.color = "#2358eb";
+            break;
+        default:
+            strongnessLabel.innerHTML = "ㅤ";
+            strongnessLabel.style.color = "var(--grey)";
+    }
+}
 
 function dictionaryW(parametrs) {
     const arrayOfBigLetters = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
@@ -81,52 +128,51 @@ async function generatePasswordString() {
 }
 
 // should do it differently
-function passwordStrength(){
-    let parametrs = getInfoAboutPassword();
+async function passwordStrength() {
+    const parametrs = await getInfoAboutPassword();
     let checkedPoints = 0;
     console.log("lenght, bigLetters, smallLetters, numbers, specialChars");
     console.log(parametrs);
-    if(parametrs[0]>=10){
+    if (parametrs[0] >= 10) {
         checkedPoints++;
     }
-    if(parametrs[1]){
+    if (parametrs[1]) {
         checkedPoints++;
     }
-    if(parametrs[2]){
+    if (parametrs[2]) {
         checkedPoints++;
     }
-    if(parametrs[3]){
+    if (parametrs[3]) {
         checkedPoints++;
     }
-    if(parametrs[4]){
+    if (parametrs[4]) {
         checkedPoints++;
     }
-    switch(checkedPoints){
+    let strongnessLabel = document.getElementById("PasswordStrongness");
+    switch (checkedPoints) {
         case 1:
-            let a = document.getElementById("PasswordStrongness");
-            a.innerHTML = "Very weak"
-            a.style.color = "#911111"
+            strongnessLabel.innerHTML = "Very weak";
+            strongnessLabel.style.color = "#911111";
             break;
         case 2:
-            let b = document.getElementById("PasswordStrongness");
-            b.innerHTML = "Weak"
-            b.style.color = "#732525"
+            strongnessLabel.innerHTML = "Weak";
+            strongnessLabel.style.color = "#732525";
             break;
         case 3:
-            let c = document.getElementById("PasswordStrongness");
-            c.innerHTML = "Good"
-            c.style.color = "#2dadab"
+            strongnessLabel.innerHTML = "Good";
+            strongnessLabel.style.color = "#2dadab";
             break;
         case 4:
-            let d = document.getElementById("PasswordStrongness");
-            d.innerHTML = "Strong"
-            d.style.color = "#26c990"
+            strongnessLabel.innerHTML = "Strong";
+            strongnessLabel.style.color = "#26c990";
             break;
         case 5:
-            let e = document.getElementById("PasswordStrongness");
-            e.innerHTML = "Very strong"
-            e.style.color = "#2358eb"
+            strongnessLabel.innerHTML = "Very strong";
+            strongnessLabel.style.color = "#2358eb";
             break;
+        default:
+            strongnessLabel.innerHTML = "ㅤ";
+            strongnessLabel.style.color = "var(--grey)";
     }
 }
 async function generatePassword() {
