@@ -22,21 +22,18 @@ function savePasswordSettings(){
     getInfoAboutPassword();//should fix that
 }
 //fix this function !!!
-function getInfoAboutPassword(){
-    try{
-        chrome.storage.local.get(["length","bigLetters","smallLetters","numbers","specialChars"],(results)=> {
-            lenght = results.length
-            bigLetters = results.bigLetters
-            smallLetters = results.smallLetters
-            numbers = results.numbers
-            specialChars =results.specialChars
+async function getInfoAboutPassword() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["length","bigLetters","smallLetters","numbers","specialChars"], (results) => {
+            resolve([
+                results.length ?? 16,
+                results.bigLetters ?? true,
+                results.smallLetters ?? true,
+                results.numbers ?? true,
+                results.specialChars ?? true
+            ]);
         });
-        let parametrs = [lenght, bigLetters, smallLetters, numbers, specialChars];
-        return parametrs;
-    }
-    catch(err){
-       console.log("Loading memory...")
-    }
+    });
 }
 
 function setSettingsInHTML(){
@@ -51,26 +48,16 @@ function setSettingsInHTML(){
 }
 
 
-function dictionaryW(){
-    const arrayOfBigLetters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    const arrayOfSmallLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-    const arrayOfNumbers = [0,1,2,3,4,5,6,7,8,9];
-    const arrayOfspecialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ':', ';', '"', "'", '<', '>', '.', '?', '/', '|']; //',' 
+function dictionaryW(parametrs) {
+    const arrayOfBigLetters = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    const arrayOfSmallLetters = [..."abcdefghijklmnopqrstuvwxyz"];
+    const arrayOfNumbers = [..."0123456789"];
+    const arrayOfspecialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ':', ';', '"', "'", '<', '>', '.', '?', '/', '|'];
     let dictionary = [];
-    let parametrs = getInfoAboutPassword();
-
-    if(parametrs[1]) {
-        dictionary = dictionary.concat(arrayOfBigLetters);
-    }
-    if(parametrs[2]){
-        dictionary = dictionary.concat(arrayOfSmallLetters);
-    }
-    if(parametrs[3]){
-        dictionary = dictionary.concat(arrayOfNumbers);
-    }
-    if(parametrs[4]){
-        dictionary = dictionary.concat(arrayOfspecialChars);
-    }
+    if(parametrs[1]) dictionary = dictionary.concat(arrayOfBigLetters);
+    if(parametrs[2]) dictionary = dictionary.concat(arrayOfSmallLetters);
+    if(parametrs[3]) dictionary = dictionary.concat(arrayOfNumbers);
+    if(parametrs[4]) dictionary = dictionary.concat(arrayOfspecialChars);
     return dictionary;
 }
 
@@ -78,23 +65,21 @@ function copyToClipBoard(pass){
     navigator.clipboard.writeText(pass);
 }
 
-function generatePasswordString(){
-    let parametrs = getInfoAboutPassword();
-    let length = parametrs[0];
+async function generatePasswordString() {
+    const parametrs = await getInfoAboutPassword();
+    const length = parametrs[0];
+    const dictionary = dictionaryW(parametrs);
     const arrayOfChars = [];
-    let dictionary = [];
-    dictionary = dictionaryW();
     for (let index = 0; index < length; index++) {
         let generatedCharForPassword = Math.floor(Math.random() * dictionary.length);
         generatedCharForPassword = dictionary[generatedCharForPassword];
-
         arrayOfChars[index] = generatedCharForPassword;
-        
     }
     let readyPassword = arrayOfChars.join('');
     copyToClipBoard(readyPassword);
-    return readyPassword
+    return readyPassword;
 }
+
 // should do it differently
 function passwordStrength(){
     let parametrs = getInfoAboutPassword();
@@ -144,39 +129,42 @@ function passwordStrength(){
             break;
     }
 }
-function generatePassword(){
-    let readyPassword = generatePasswordString()
+async function generatePassword() {
+    let readyPassword = await generatePasswordString();
     document.getElementById("genPass").value = readyPassword;
     passwordStrength();
 }
 
-function generateListOfPasswords(){
+async function generateListOfPasswords() {
     let ammount = document.getElementById("howManyPasswords").value;
     let e = document.getElementById("howManyPasswordsError");
-    if(ammount <= 0){
-        e.innerHTML= "Please enter a number greater than 0 !";
-        e.style.color = "#911111" 
+    if (ammount <= 0) {
+        e.innerHTML = "Please enter a number greater than 0 !";
+        e.style.color = "#911111";
         return;
-    }if(isNaN(ammount)){
-        e.innerHTML= "Please enter a number!";
-        e.style.color = "#911111" 
+    }
+    if (isNaN(ammount)) {
+        e.innerHTML = "Please enter a number!";
+        e.style.color = "#911111";
         return;
-    }else{
-        e.innerHTML= "ㅤ";
+    } else {
+        e.innerHTML = "ㅤ";
         e.style.color = "var(--grey)";
     }
     console.log(ammount);
-    
+
+    // Generate passwords asynchronously
     let passwords = [];
     for (let index = 0; index < ammount; index++) {
-        let readyPassword = generatePasswordString();
+        let readyPassword = await generatePasswordString();
         passwords.push(readyPassword);
     }
+
     console.log(passwords);
     document.getElementById("howManyPasswords").value = null;
-    e.innerHTML="Passwords were generated succesfully!"
+    e.innerHTML = "Passwords were generated succesfully!"
     e.style.color = "green"
-    //array to csv file
+    // array to csv file
     const csvContent = passwords.join("\n");
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -188,3 +176,22 @@ function generateListOfPasswords(){
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
+
+// Initialize default settings if not set
+chrome.storage.local.get(["length", "bigLetters", "smallLetters", "numbers", "specialChars"], (results) => {
+    if (
+        typeof results.length === "undefined" ||
+        typeof results.bigLetters === "undefined" ||
+        typeof results.smallLetters === "undefined" ||
+        typeof results.numbers === "undefined" ||
+        typeof results.specialChars === "undefined"
+    ) {
+        chrome.storage.local.set({
+            length: 16,
+            bigLetters: true,
+            smallLetters: true,
+            numbers: true,
+            specialChars: true
+        });
+    }
+});
