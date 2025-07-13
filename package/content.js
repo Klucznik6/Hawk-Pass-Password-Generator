@@ -125,11 +125,15 @@ const observer = new MutationObserver(() => {
     input[aria-label*="Hasło"]
   `);
 
-  passwordFields.forEach(passwordField => {
-    // More robust check for existing button
-    const existingButton = passwordField.parentNode.querySelector('[id*="generatePasswordUnical2142"]');
+  // Only work with the first password field found
+  const firstPasswordField = passwordFields[0];
+  
+  if (firstPasswordField) {
+    // Check if any button already exists on the page
+    const existingButton = document.querySelector('[id*="generatePasswordUnical2142"]');
     
-    if (passwordField && !existingButton && passwordField.offsetParent !== null) {
+    if (!existingButton && firstPasswordField.offsetParent !== null) {
+      const passwordField = firstPasswordField;
       const genButton = document.createElement("button");
       genButton.type = "button";
       genButton.textContent = "Generate";
@@ -177,7 +181,7 @@ const observer = new MutationObserver(() => {
         genButton.style.background = "#1a73e8";
       });
     }
-  });
+  }
 });
 
 // Start observing immediately
