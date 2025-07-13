@@ -3,18 +3,18 @@ async function getInfoAboutPassword() {
         return new Promise((resolve) => {
             chrome.storage.local.get(["length","bigLetters","smallLetters","numbers","specialChars"], (results) => {
                 const parametrs = [
-                    results.length,
-                    results.bigLetters,
-                    results.smallLetters,
-                    results.numbers,
-                    results.specialChars
+                    results.length ?? 16,
+                    results.bigLetters ?? true,
+                    results.smallLetters ?? true,
+                    results.numbers ?? true,
+                    results.specialChars ?? true
                 ];
                 resolve(parametrs);
             });
         });
     } catch(err) {
         console.log("Loading memory...");
-        return null;
+        return [16, true, true, true, true]; // Return default values instead of null
     }
 }
 
@@ -54,10 +54,57 @@ async function generatePasswordString() {
 
 async function injectPassword(passwordField) {
     const generatedPassword = await generatePasswordString();
+    
+    // Focus first to ensure the field is active
+    passwordField.focus();
+    
+    // Clear the field first
+    passwordField.value = '';
+    
+    // Set the value using multiple methods for better compatibility
     passwordField.value = generatedPassword;
-    passwordField.dispatchEvent(new Event('input', { bubbles: true }));
-    passwordField.dispatchEvent(new Event('change', { bubbles: true }));
-    console.log('Wstawiono hasło:', generatedPassword);
+    passwordField.setAttribute('value', generatedPassword);
+    
+    // Create and dispatch more comprehensive events
+    const events = [
+        new Event('focus', { bubbles: true }),
+        new Event('input', { bubbles: true, cancelable: true }),
+        new Event('keydown', { bubbles: true, cancelable: true }),
+        new Event('keypress', { bubbles: true, cancelable: true }),
+        new Event('keyup', { bubbles: true, cancelable: true }),
+        new Event('change', { bubbles: true, cancelable: true }),
+        new Event('blur', { bubbles: true })
+    ];
+    
+    // Dispatch events with small delays to mimic real user input
+    events.forEach((event, index) => {
+        setTimeout(() => {
+            passwordField.dispatchEvent(event);
+        }, index * 10);
+    });
+    
+    // Try to trigger React/Vue change detection if present
+    if (passwordField._valueTracker) {
+        passwordField._valueTracker.setValue('');
+    }
+    
+    // Additional method for React apps
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    nativeInputValueSetter.call(passwordField, generatedPassword);
+    
+    const inputEvent = new Event('input', { bubbles: true });
+    passwordField.dispatchEvent(inputEvent);
+    
+    console.log('Password injected:', generatedPassword);
+    
+    // Verify the injection worked
+    setTimeout(() => {
+        if (passwordField.value === generatedPassword) {
+            console.log('Password injection successful');
+        } else {
+            console.log('Password injection may have failed, field value:', passwordField.value);
+        }
+    }, 100);
 }
 
 function copyToClipBoard(pass){
@@ -66,28 +113,78 @@ function copyToClipBoard(pass){
 }
 
 const observer = new MutationObserver(() => {
-  const passwordField = document.querySelector('input[type="password"]');
+  // Look for password fields with Google-specific attributes
+  const passwordFields = document.querySelectorAll(`
+    input[type="password"],
+    input[autocomplete*="password"],
+    input[name*="password"],
+    input[id*="password"],
+    input[aria-label*="password"],
+    input[aria-label*="Password"],
+    input[aria-label*="hasło"],
+    input[aria-label*="Hasło"]
+  `);
 
-  if (passwordField && !document.getElementById("generatePasswordUnical2142")) {
-    //const br = document.createElement("br");
-    //const br2 = document.createElement("br");
-    //passwordField.insertAdjacentElement('afterend', br2);
-    const genButton = document.createElement("input");
-    genButton.type = "button";
-    genButton.value = "Generate";
-    genButton.id = "generatePasswordUnical2142";
-    genButton.classList.add("button");
-    genButton.classList.add("button-unical2315");
-    passwordField.insertAdjacentElement('afterend',genButton);
-    //passwordField.insertAdjacentElement('afterend', br);
-
-
-    genButton.addEventListener("click", () =>{ 
-      injectPassword(passwordField);
-    });
-    observer.disconnect();
+  passwordFields.forEach(passwordField => {
+    // More robust check for existing button
+    const existingButton = passwordField.parentNode.querySelector('[id*="generatePasswordUnical2142"]');
     
-  }
+    if (passwordField && !existingButton && passwordField.offsetParent !== null) {
+      const genButton = document.createElement("button");
+      genButton.type = "button";
+      genButton.textContent = "Generate";
+      genButton.id = "generatePasswordUnical2142_" + Math.random().toString(36).substr(2, 9);
+      genButton.style.cssText = `
+        margin-left: 8px;
+        padding: 4px 8px;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        z-index: 9999;
+        position: relative;
+      `;
+      
+      // Try different insertion methods for better compatibility
+      try {
+        if (passwordField.parentNode) {
+          // Try to insert after the password field or its container
+          const container = passwordField.closest('div') || passwordField.parentNode;
+          container.appendChild(genButton);
+        }
+      } catch (error) {
+        console.log('Failed to insert button:', error);
+        try {
+          passwordField.insertAdjacentElement('afterend', genButton);
+        } catch {
+          passwordField.parentNode.insertBefore(genButton, passwordField.nextSibling);
+        }
+      }
+
+      genButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        injectPassword(passwordField);
+      });
+      
+      // Add hover effect
+      genButton.addEventListener("mouseenter", () => {
+        genButton.style.background = "#1557b0";
+      });
+      genButton.addEventListener("mouseleave", () => {
+        genButton.style.background = "#1a73e8";
+      });
+    }
+  });
 });
 
+// Start observing immediately
 observer.observe(document.body, { childList: true, subtree: true });
+
+// Also run once when the script loads
+setTimeout(() => {
+  observer.disconnect();
+  observer.observe(document.body, { childList: true, subtree: true });
+}, 1000);
