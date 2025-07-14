@@ -39,7 +39,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">
+            <a class="navbar-brand" href="../index_modern.html">
                 <img src="../images/iconDarkMotive.png" alt="Hawk Pass" width="30" height="30" class="d-inline-block align-text-top">
                 Hawk Pass Guide
             </a>
@@ -51,92 +51,137 @@
             <div class="col-lg-8 mx-auto">
                 <div class="guide-section">
                     <h1 class="mb-4">Hawk Pass User Guide</h1>
-                    <p class="lead">Welcome to Hawk Pass! This guide will help you use all features of the password generator extension.</p>
+                    <p class="lead">Welcome to Hawk Pass! This comprehensive guide will help you master all features of the modern password generator extension with its sleek new interface and enhanced functionality.</p>
                 </div>
 
                 <div class="guide-section">
                     <h2>Getting Started</h2>
                     <ol>
-                        <li>Install the Hawk Pass extension from the Chrome Web Store or <a href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">GitHub</a>.</li>
-                        <li>Click the Hawk Pass icon in your Chrome toolbar to open the popup.</li>
-                        <li>Use the popup to generate passwords or adjust settings.</li>
-                        <li>On any website, Hawk Pass will add a <b>Generate</b> button next to password fields for quick password insertion.</li>
+                        <li>Install the Hawk Pass extension from the Chrome Web Store or download from <a href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">GitHub</a>.</li>
+                        <li>Click the Hawk Pass icon in your Chrome toolbar to open the modern 600px popup interface.</li>
+                        <li>The extension automatically initializes with default settings on first use.</li>
+                        <li>Use the gear icon (⚙️) to access the comprehensive settings modal.</li>
+                        <li>On websites, Hawk Pass intelligently detects password fields and adds a <b>Generate</b> button for instant password creation.</li>
                     </ol>
                 </div>
 
                 <div class="guide-section">
                     <h2>Features</h2>
                     <ul class="feature-list">
-                        <li><b>Single Password Generation:</b> Click <code>Generate Password</code> to create a secure password. It will be copied to your clipboard automatically.</li>
-                        <li><b>Password Strength Indicator:</b> Shows the strength of your generated password based on length and character types.</li>
-                        <li><b>Bulk Password Generation:</b> Enter the number of passwords you need and click <code>Generate Lists</code>. A CSV file with all passwords will be downloaded.</li>
-                        <li><b>Website Integration:</b> On any site, a <code>Generate</code> button appears next to password fields. Click it to auto-fill a strong password.</li>
+                        <li><b>Modern UI Design:</b> Clean 600px interface with Inter font, dark theme, and smooth animations for optimal user experience.</li>
+                        <li><b>Single Password Generation:</b> Click <code>Generate Password</code> to create a secure password with real-time strength analysis. Passwords are automatically copied to your clipboard.</li>
+                        <li><b>Real-time Password Strength Indicator:</b> Dynamic visual feedback showing password security level with color-coded strength ratings.</li>
+                        <li><b>Bulk Password Generation:</b> Enter the number of passwords (1-1000) and click <code>Export CSV</code> to download multiple passwords with timestamps.</li>
+                        <li><b>Smart Website Integration:</b> Automatically detects password fields on all websites, including Google and complex single-page applications, with optimized MutationObserver technology.</li>
+                        <li><b>Persistent Settings:</b> Your preferences are automatically saved using Chrome's storage API and restored between browser sessions.</li>
+                        <li><b>Enhanced Error Handling:</b> Comprehensive validation with user-friendly error messages and robust async/await implementation.</li>
+                    </ul>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Modern Interface Overview</h2>
+                    <p>Hawk Pass features a completely redesigned modern interface optimized for user experience:</p>
+                    <ul>
+                        <li><b>Optimized Dimensions:</b> 600x580px popup for optimal viewing and usability on all screen sizes.</li>
+                        <li><b>Typography:</b> Inter font family for clean, readable text with proper font weights and spacing.</li>
+                        <li><b>Dark Theme:</b> Sophisticated dark color scheme with carefully selected contrast ratios for accessibility.</li>
+                        <li><b>Visual Hierarchy:</b> Clear section divisions, proper spacing, and intuitive layout flow.</li>
+                        <li><b>Interactive Elements:</b> Smooth hover effects, visual feedback, and modern button designs.</li>
+                        <li><b>Copy Feedback:</b> Visual confirmation when passwords are copied to clipboard.</li>
+                        <li><b>Responsive Design:</b> Adapts gracefully to different viewing contexts while maintaining functionality.</li>
+                    </ul>
+                    <h4>Key Interface Elements:</h4>
+                    <ul>
+                        <li><b>Header:</b> Logo, title, and settings access in a clean navigation bar.</li>
+                        <li><b>Password Display:</b> Monospace font area with integrated copy button for generated passwords.</li>
+                        <li><b>Generate Button:</b> Primary action button with loading states and visual feedback.</li>
+                        <li><b>Strength Indicator:</b> Real-time color-coded password strength display.</li>
+                        <li><b>Bulk Generation:</b> Dedicated section for CSV export functionality.</li>
+                        <li><b>Settings Modal:</b> Full-featured overlay with all customization options.</li>
                     </ul>
                 </div>
 
                 <div class="guide-section">
                     <h2>Password Settings</h2>
-                    <p>Customize how your passwords are generated in the <b>Settings</b> menu:</p>
+                    <p>Access the modern settings modal by clicking the gear icon (⚙️) in the top-right corner of the extension:</p>
                     <ul>
                         <li>
                             <b>Password Length:</b>
                             <ul>
-                                <li>Set from <b>6</b> to <b>64</b> characters using the slider.</li>
-                                <li>Recommended: at least <b>12</b> characters for strong security.</li>
+                                <li>Use the interactive slider to set from <b>6</b> to <b>64</b> characters.</li>
+                                <li>Real-time length display shows current selection.</li>
+                                <li>Recommended: <b>16+</b> characters for maximum security (default setting).</li>
                             </ul>
                         </li>
                         <li>
-                            <b>Character Types:</b>
+                            <b>Character Types (with visual checkboxes):</b>
                             <ul>
-                                <li><b>Big letters (A-Z):</b> Include uppercase letters.</li>
-                                <li><b>Small letters (a-z):</b> Include lowercase letters.</li>
-                                <li><b>Numbers (0-9):</b> Include digits.</li>
-                                <li><b>Special chars (!@#$...):</b> Include special characters.</li>
+                                <li><b>Uppercase Letters (A-Z):</b> Include capital letters for complexity.</li>
+                                <li><b>Lowercase Letters (a-z):</b> Include small letters for variety.</li>
+                                <li><b>Numbers (0-9):</b> Include digits for numerical complexity.</li>
+                                <li><b>Special Characters (!@#$...):</b> Include symbols for maximum security.</li>
                             </ul>
                         </li>
                         <li>
-                            <b>Saving Settings:</b> After changing any option, click <code>Save</code> to apply your preferences.
+                            <b>Settings Management:</b>
+                            <ul>
+                                <li>Click <code>Save Settings</code> to apply and persist your preferences.</li>
+                                <li>Use <code>Reset to Default</code> to restore original settings (16 chars, all types enabled).</li>
+                                <li>Settings are automatically restored when you reopen the extension.</li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
 
                 <div class="guide-section">
                     <h2>Password Strength Indicator</h2>
+                    <p>The extension provides real-time strength analysis with color-coded feedback:</p>
                     <ul>
-                        <li><span style="color: #911111">Very weak</span>: Only one character type or short length</li>
-                        <li><span style="color: #732525">Weak</span>: Two character types</li>
-                        <li><span style="color: #2dadab">Good</span>: Three character types</li>
-                        <li><span style="color: #26c990">Strong</span>: Four character types</li>
-                        <li><span style="color: #2358eb">Very strong</span>: Four types and length at least 10</li>
+                        <li><span style="color: #ef4444"><b>Very Weak</b></span>: Less than 8 characters or only one character type</li>
+                        <li><span style="color: #f97316"><b>Weak</b></span>: 8-11 characters with 2 character types</li>
+                        <li><span style="color: #f59e0b"><b>Good</b></span>: 8-11 characters with 3+ character types</li>
+                        <li><span style="color: #10b981"><b>Strong</b></span>: 12-15 characters with 3+ character types</li>
+                        <li><span style="color: #8b5cf6"><b>Very Strong</b></span>: 16+ characters with all character types enabled</li>
+                    </ul>
+                    <p><em>The strength indicator updates instantly as you adjust settings or generate new passwords.</em></p>
+                </div>
+
+                <div class="guide-section">
+                    <h2>Smart Website Integration</h2>
+                    <ul>
+                        <li><b>Automatic Detection:</b> Advanced MutationObserver technology detects password fields on all websites, including dynamic content and single-page applications.</li>
+                        <li><b>Google Optimization:</b> Specially optimized for Google services, Gmail, and other complex web applications.</li>
+                        <li><b>Generate Button:</b> A styled "Generate" button appears next to detected password fields with consistent branding.</li>
+                        <li><b>One-Click Fill:</b> Click the button to instantly generate and auto-fill a secure password based on your current settings.</li>
+                        <li><b>Performance:</b> Efficiently monitors page changes without impacting browsing performance.</li>
+                        <li><b>Compatibility:</b> Works on registration forms, password change pages, login forms, and account settings across all websites.</li>
                     </ul>
                 </div>
 
                 <div class="guide-section">
-                    <h2>Website Integration</h2>
+                    <h2>Security Best Practices</h2>
                     <ul>
-                        <li>When you visit a website with a password field, Hawk Pass automatically adds a <b>Generate</b> button next to it.</li>
-                        <li>Click the button to instantly generate and fill a strong password.</li>
-                        <li>The button uses a unique style for visibility and consistency.</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
-                    <h2>Tips for Secure Passwords</h2>
-                    <ul>
-                        <li>Use at least 12 characters for important accounts.</li>
-                        <li>Enable all character types for maximum strength.</li>
-                        <li>Never reuse passwords across different sites.</li>
-                        <li>Store your passwords in a secure password manager.</li>
+                        <li><b>Password Length:</b> Use 16+ characters for maximum security (matches extension default).</li>
+                        <li><b>Character Diversity:</b> Enable all character types for exponentially increased password strength.</li>
+                        <li><b>Unique Passwords:</b> Never reuse passwords across different accounts or websites.</li>
+                        <li><b>Password Management:</b> Store generated passwords in a reputable password manager for secure access.</li>
+                        <li><b>Regular Updates:</b> Change passwords periodically, especially for critical accounts.</li>
+                        <li><b>Two-Factor Authentication:</b> Enable 2FA whenever possible for additional security layers.</li>
                     </ul>
                 </div>
 
                 <div class="guide-section">
                     <h2>Troubleshooting</h2>
                     <ul>
-                        <li>If the extension does not work on a website, try refreshing the page.</li>
-                        <li>Make sure you have granted the extension permissions in Chrome.</li>
-                        <li>For more help, visit the <a href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">GitHub repository</a>.</li>
+                        <li><b>Extension Not Loading:</b> Refresh the page after installation or check Chrome extension permissions.</li>
+                        <li><b>Generate Button Missing:</b> Wait for complete page load, especially on dynamic sites like Google. Try refreshing if needed.</li>
+                        <li><b>Settings Not Saving:</b> Ensure Chrome has storage permissions enabled for the extension.</li>
+                        <li><b>CSV Export Issues:</b> Check browser download settings and ensure popup blockers aren't interfering.</li>
+                        <li><b>Website Compatibility:</b> The extension works on 99% of sites. Report any issues on our GitHub repository.</li>
+                        <li><b>Performance:</b> If experiencing slowdowns, try disabling and re-enabling the extension.</li>
+                        <li><b>Chrome Updates:</b> Ensure you're using Chrome 88+ for full compatibility with Manifest V3.</li>
                     </ul>
+                    <p><em>For additional support, visit our <a href="https://github.com/Klucznik6/Hawk-Pass-Password-Generator" target="_blank">GitHub repository</a> and check existing issues or create a new one.</em></p>
                 </div>
 
                 <div class="guide-section">

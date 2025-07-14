@@ -1,8 +1,5 @@
 document.getElementById("passButton").addEventListener("click", generatePassword); // generate password
 document.getElementById("saveSettings").addEventListener("click",savePasswordSettings); // save settings
-document.getElementById("openMenu").addEventListener("click", async () => {
-    await setSettingsInHTML();
-}); // menu opening
 document.getElementById("GeneratePassword").addEventListener("click",generateListOfPasswords); // generate password
 getInfoAboutPassword(); // must be here 💀 (i need to fix that)
 
@@ -15,13 +12,18 @@ passwordLenght.addEventListener("input", (event) => {
 
 function savePasswordSettings(){
     chrome.storage.local.set({
-        length:passwordLenght.value,
-        bigLetters:document.getElementById("bigLetters").checked,
-        smallLetters:document.getElementById("smallLetters").checked,
-        numbers:document.getElementById("numbers").checked,
-        specialChars:document.getElementById("specialChars").checked
-    })
-    getInfoAboutPassword();//should fix that
+        length: parseInt(passwordLenght.value),
+        bigLetters: document.getElementById("bigLetters").checked,
+        smallLetters: document.getElementById("smallLetters").checked,
+        numbers: document.getElementById("numbers").checked,
+        specialChars: document.getElementById("specialChars").checked
+    }, () => {
+        // Close modal and show confirmation
+        document.getElementById("settingsModal").classList.remove("show");
+        showToast("Settings saved successfully!");
+        // Update password strength with new settings
+        passwordStrength();
+    });
 }
 //fix this function !!!
 async function getInfoAboutPassword() {
@@ -41,8 +43,8 @@ async function getInfoAboutPassword() {
 async function setSettingsInHTML() {
     const parametrs = await getInfoAboutPassword();
     console.log(parametrs);
-    document.querySelector("#passwordLenght").setAttribute('value', parametrs[0]);
-    document.querySelector("#passwordLenghtValue").value = parametrs[0];
+    document.querySelector("#passwordLenght").value = parametrs[0];
+    document.querySelector("#passwordLenghtValue").textContent = parametrs[0];
     document.querySelector("#bigLetters").checked = parametrs[1];
     document.querySelector("#smallLetters").checked = parametrs[2];
     document.querySelector("#numbers").checked = parametrs[3];
@@ -128,55 +130,6 @@ async function generatePasswordString() {
     copyToClipBoard(readyPassword);
     return readyPassword;
 }
-
-// should do it differently
-async function passwordStrength() {
-    const parametrs = await getInfoAboutPassword();
-    let checkedPoints = 0;
-    console.log("lenght, bigLetters, smallLetters, numbers, specialChars");
-    console.log(parametrs);
-    if (parametrs[0] >= 10) {
-        checkedPoints++;
-    }
-    if (parametrs[1]) {
-        checkedPoints++;
-    }
-    if (parametrs[2]) {
-        checkedPoints++;
-    }
-    if (parametrs[3]) {
-        checkedPoints++;
-    }
-    if (parametrs[4]) {
-        checkedPoints++;
-    }
-    let strongnessLabel = document.getElementById("PasswordStrongness");
-    switch (checkedPoints) {
-        case 1:
-            strongnessLabel.innerHTML = "Very weak";
-            strongnessLabel.style.color = "#911111";
-            break;
-        case 2:
-            strongnessLabel.innerHTML = "Weak";
-            strongnessLabel.style.color = "#732525";
-            break;
-        case 3:
-            strongnessLabel.innerHTML = "Good";
-            strongnessLabel.style.color = "#2dadab";
-            break;
-        case 4:
-            strongnessLabel.innerHTML = "Strong";
-            strongnessLabel.style.color = "#26c990";
-            break;
-        case 5:
-            strongnessLabel.innerHTML = "Very strong";
-            strongnessLabel.style.color = "#2358eb";
-            break;
-        default:
-            strongnessLabel.innerHTML = "ㅤ";
-            strongnessLabel.style.color = "var(--grey)";
-    }
-}
 async function generatePassword() {
     let readyPassword = await generatePasswordString();
     document.getElementById("genPass").value = readyPassword;
@@ -225,6 +178,133 @@ async function generateListOfPasswords() {
     URL.revokeObjectURL(url);
 }
 
+// Modern UI Event Listeners
+document.getElementById("openMenu").addEventListener("click", () => {
+    document.getElementById("settingsModal").classList.add("show");
+    setSettingsInHTML();
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("settingsModal").classList.remove("show");
+});
+
+document.getElementById("copyBtn").addEventListener("click", () => {
+    const passwordField = document.getElementById("genPass");
+    if (passwordField.value) {
+        copyToClipBoard(passwordField.value);
+        showToast("Password copied to clipboard!");
+    }
+});
+
+document.getElementById("resetSettings").addEventListener("click", () => {
+    chrome.storage.local.set({
+        length: 16,
+        bigLetters: true,
+        smallLetters: true,
+        numbers: true,
+        specialChars: true
+    });
+    setSettingsInHTML();
+    showToast("Settings reset to default");
+});
+
+// Click outside modal to close
+document.getElementById("settingsModal").addEventListener("click", (e) => {
+    if (e.target.id === "settingsModal") {
+        document.getElementById("settingsModal").classList.remove("show");
+    }
+});
+
+// Toast notification function
+function showToast(message) {
+    // Remove existing toast
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--success-color);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 1001;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+// Add CSS animations for toast
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// Enhanced password strength function with modern styling
+async function passwordStrength() {
+    const parametrs = await getInfoAboutPassword();
+    let checkedPoints = 0;
+    
+    if (parametrs[0] >= 10) checkedPoints++;
+    if (parametrs[1]) checkedPoints++;
+    if (parametrs[2]) checkedPoints++;
+    if (parametrs[3]) checkedPoints++;
+    if (parametrs[4]) checkedPoints++;
+    
+    const strongnessLabel = document.getElementById("PasswordStrongness");
+    
+    // Remove all strength classes
+    strongnessLabel.className = 'strength-indicator';
+    
+    switch (checkedPoints) {
+        case 1:
+            strongnessLabel.textContent = "Very Weak";
+            strongnessLabel.classList.add("strength-very-weak");
+            break;
+        case 2:
+            strongnessLabel.textContent = "Weak";
+            strongnessLabel.classList.add("strength-weak");
+            break;
+        case 3:
+            strongnessLabel.textContent = "Good";
+            strongnessLabel.classList.add("strength-good");
+            break;
+        case 4:
+            strongnessLabel.textContent = "Strong";
+            strongnessLabel.classList.add("strength-strong");
+            break;
+        case 5:
+            strongnessLabel.textContent = "Very Strong";
+            strongnessLabel.classList.add("strength-very-strong");
+            break;
+        default:
+            strongnessLabel.textContent = "Generate a password first";
+            break;
+    }
+}
+
 // Initialize default settings if not set
 chrome.storage.local.get(["length", "bigLetters", "smallLetters", "numbers", "specialChars"], (results) => {
     if (
@@ -242,4 +322,6 @@ chrome.storage.local.get(["length", "bigLetters", "smallLetters", "numbers", "sp
             specialChars: true
         });
     }
+    // Load current settings into the UI
+    setSettingsInHTML();
 });
